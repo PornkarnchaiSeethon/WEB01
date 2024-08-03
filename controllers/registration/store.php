@@ -1,4 +1,5 @@
 <?php
+session_start();
 require base_part('Core/Database.php');
 use Core\Data\Database;
 
@@ -20,6 +21,7 @@ if(!empty($errors)){
 
 $resute = $db->insert_user($username,$email,$password);
 if($resute){
+    $_SESSION['user'] = $email;
     view('home.view.php');
 }else{
     view('home.view.php');
