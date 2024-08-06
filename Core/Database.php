@@ -11,7 +11,7 @@ class Database extends Config
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-            echo 'Email already exists!';
+            return false;
         } else {
             $stmt = $this->connect->prepare('INSERT INTO user (username, email, password) VALUES (:username, :email, :password)');
             $stmt->bindParam(':username', $username);
@@ -26,5 +26,13 @@ class Database extends Config
                 return false;
             }
         }
+    }
+
+    public function login_user($email){
+        $stmt = $this->connect->prepare('select * from user where email = :email');
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
     }
 }

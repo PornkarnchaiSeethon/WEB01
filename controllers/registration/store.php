@@ -21,8 +21,18 @@ if(!empty($errors)){
 
 $resute = $db->insert_user($username,$email,$password);
 if($resute){
-    $_SESSION['user'] = $email;
-    view('home.view.php');
+    $_SESSION['user'] = [
+        'username'=>$username,
+        'email'=>$email,
+        'password'=>$password
+    ];
+    header('location:/');
+    exit();
 }else{
-    view('home.view.php');
+    $errors['error'] = "some thing worng"; 
+
+    view('register.view.php',[
+        'error' => $errors
+    ]);
+    exit();
 }
