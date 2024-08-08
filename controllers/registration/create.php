@@ -18,19 +18,19 @@ if(!empty($errors)){
     ]);
 }
 
-$resute = $db->login_user($email);
+$resute = $db->find_user_with_email($email);
 var_dump($resute);
 
-// if($resute['email'] == $email && $resute['password'] == $password){
-//     $_SESSION['user'] = [
-//         'username' => $resute['username'],
-//         'email' => $resute['email'],
-//         'password' => $resute['password']
-//     ];
+if($resute['email'] == $email && $resute['password'] == $password){
+    $_SESSION['user'] = [
+        'username' => $resute['username'],
+        'email' => $resute['email'],
+        'password' => $resute['password']
+    ];
 
-//     header('location:/');
-//     exit();
-// }else{
-//     header('location:/login');
-//     exit();
-// }
+    header('location:/');
+    exit();
+}else{
+    header('location:/login');
+    exit();
+}

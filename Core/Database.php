@@ -17,18 +17,12 @@ class Database extends Config
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password);
-
-            if ($stmt->execute()) {
-                echo 'User registered successfully!';
-                return true;
-            } else {
-                echo 'Error registering user!';
-                return false;
-            }
+            $stmt->execute();
+            return true;
         }
     }
 
-    public function login_user($email){
+    public function find_user_with_email($email){
         $stmt = $this->connect->prepare('select * from user where email = :email');
         $stmt->bindParam(':email', $email);
         $stmt->execute();
